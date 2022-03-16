@@ -19,3 +19,17 @@ export const createUser = async (user) => {
         client.close();
     }
 }
+
+// returns user if exists
+export const getUserByEmailNoStatus = async (email) => {
+    try {
+        await client.connect();
+        const db = client.db(DATABASE_NAME);
+        const users = db.collection(COLLECTION_NAME);
+        return await users.findOne({ email });
+    } catch (err) {
+        console.log(err);
+    } finally {
+        client.close();
+    }
+}
