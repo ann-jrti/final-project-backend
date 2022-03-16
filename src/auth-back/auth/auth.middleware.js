@@ -1,7 +1,5 @@
-import express from "express"
 import * as EmailValidator from 'email-validator';
 import { passwordStrength } from 'check-password-strength';
-import { retrieveUserInfoByEmail } from "./users.model.js"
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -28,9 +26,13 @@ export const validateUser = (req, res, next) => {
 export const validateAuth = (req, res, next) => {
     try {
         const auth = req.header('Authorization'); //obtains email from token
+        console.log(auth);
         const token = auth.split(' ')[1]; //get header
+        console.log(token);
         const payload = jwt.verify(token, JWT_SECRET); //we obtain token
+        console.log(payload);
         req.email = payload.email;// we add attribute to the requeset
+        console.log(req.email, payload.email);
         next();
     } catch (err) {
         //token is not valid or there is no token

@@ -57,7 +57,7 @@ export const updateValidUser = async (email) => {
 }
 
 // returns user in ddbb with success status if email and password matches
-export const retrieveSuccessUserByEmailAndPassword = async (email, pw) => {
+export const retrieveSuccessUserByEmailAndPassword = async (email, password) => {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
@@ -81,7 +81,7 @@ export const retrieveUserInfoByEmail = async (email) => {
         const db = client.db(DATABASE_NAME);
         const users = db.collection(COLLECTION_NAME);
         const query = { email };
-        const options = { projection: { _id: 0, password: 0 } };
+        const options = { projection: { _id: 0, password: 0, status: 0 } }
         return await users.findOne(query, options);
     } catch (err) {
         console.log(err);

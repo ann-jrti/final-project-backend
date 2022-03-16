@@ -26,7 +26,7 @@ export const createValidationToken = async (token, userName) => {
     }
 }
 
-export const retreveValidationToken = async (token) => {
+export const retrieveValidationToken = async (token) => {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
