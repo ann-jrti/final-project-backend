@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/register', validateUser, registerCtrl)
 
 //enpoint to validate user email
-router.post('/validate', validateEmailCtrl)
+router.get('/validate', validateEmailCtrl)
 
 //enpoint for user to login
 router.post('/login', loginCtrl)
