@@ -1,5 +1,6 @@
 import express from "express";
 import cors from 'cors';
+import authRouter from './src/auth-back/auth/auth.router.js'
 
 const app = express();
 app.use(express.json());
@@ -11,5 +12,8 @@ const port = process.env.PORT || 4000;
 app.get('/', (req, res) => {
     res.send('hello')
 })
+
+app.use('/auth', authRouter);
+
 
 app.listen(port, () => console.log(`server listening on port ${port}`));
