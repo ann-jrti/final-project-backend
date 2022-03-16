@@ -1,12 +1,13 @@
 import { createUser, getUserByEmailNoStatus } from "../users/users.model.js";
 import { createValidationToken } from "./auth.model.js";
-import { generateValidationToken } from "./auth.utils.js";
+import { generateValidationToken, encodePassword } from "./auth.utils.js";
 import { sendValidationEmail } from "../../adapters/email.js";
 
 export const registerCtrl = async (req, res) => {
     try {
         const user = await getUserByEmailNoStatus(req.body.email);
         if (user === null) {
+            req.body.password = encodePassword(req.body.password);
             await createUser({ ...req.body, status: 'pending-validation' }); // creates user and saves it in database
             const token = generateValidationToken(); // generates token for user
             await createValidationToken(token, req.body.email); // saves it in db and ties token to user
