@@ -1,11 +1,14 @@
+import express from "express"
 import * as EmailValidator from 'email-validator';
 import { passwordStrength } from 'check-password-strength';
+import { retrieveUserInfoByEmail } from "./users.model.js"
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
-/**
- * Validate that email is correct
- * If email is not valid, we send 400
- */
+const { JWT_SECRET } = process.env;
 
+// check if email is valid. If so next, if not we send 400
 export const validateUser = (req, res, next) => {
     const { email, password } = req.body;
     const validEmail = EmailValidator.validate(email);
@@ -19,5 +22,19 @@ export const validateUser = (req, res, next) => {
         if (!validPassword) res.status(400).json({
             error: 'Your password is too weak. Please make sure you include at least: one number, one uppercase letter and one special character.'
         })
+    }
+}
+
+export const validateAuth = (req, res, next) => {
+    try {
+        const auth = req.header('Authorization'); //obtains email from token
+        const token = auth.split(' ')[1]; //get header
+        const payload = jwt.verify(token, JWT_SECRET); //we obtain token
+        req.email = payload.email;// we add attribute to the requeset
+        next();
+    } catch (err) {
+        //token is not valid or there is no token
+        console.error(err);
+        res.sendStatus(401);
     }
 }
