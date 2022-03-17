@@ -3,6 +3,8 @@ import cors from 'cors';
 import authRouter from './src/auth-back/auth/auth.router.js'
 import userRouter from './src/auth-back/users/users.router.js'
 import { validateAuth } from "./src/auth-back/auth/auth.middleware.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 app.use(express.json());
