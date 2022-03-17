@@ -1,23 +1,27 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 
 export const sendValidationEmail = async (to, url) => {
-    const testAccount = await nodemailer.createTestAccount();
+  // const testAccount = await nodemailer.createTestAccount();
+  const { REACT_APP_EMAIL, REACT_APP_PASS } = process.env;
 
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        secure: false, //true for 465, false for other ports
-        auth: {
-            user: testAccount.user,
-            pass: testAccount.pass,
-        },
-    })
+  const mailOptions = {}
 
-    const info = await transporter.sendMail({
-        from: '"ann final project" <andreamaso.sm@gmail.com>',
-        to,
-        subject: 'Valida tu email',
-        html: `
+  const transporter = nodemailer.createTransport({
+    // host: 'smtp.ethereal.email',
+    service: 'gmail',
+    // port: 587,
+    // secure: false, //true for 465, false for other ports
+    auth: {
+      user: REACT_APP_EMAIL,
+      pass: REACT_APP_PASS,
+    },
+  })
+
+  const info = await transporter.sendMail({
+    from: '"ann final project" <hiplayertest@gmail.com>',
+    to,
+    subject: 'Valida tu email',
+    html: `
         <!DOCTYPE html>
         <html>
         <head>
@@ -290,7 +294,7 @@ export const sendValidationEmail = async (to, url) => {
         
         </body>
         </html>`,
-    });
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  });
+  console.log("Message sent: %s", info.messageId);
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 }
