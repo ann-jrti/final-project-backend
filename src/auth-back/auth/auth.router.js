@@ -10,7 +10,7 @@ router.post('/register', validateUser, registerCtrl)
 //enpoint to validate user email
 router.get('/validate', validateEmailCtrl)
 
-//enpoint for user to login
+//enpoint for user to log in
 router.post('/login', loginCtrl)
 
 export default router;
