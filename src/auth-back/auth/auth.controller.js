@@ -44,9 +44,8 @@ export const validateEmailCtrl = async (req, res) => {
 export const loginCtrl = async (req, res) => {
     const { email, password } = req.body;
     const user = await retrieveSuccessUserByEmailAndPassword(email, encodePassword(password));
-    console.log(user);
     if (user !== null) {
-        const token = jwt.sign({ email: user.email, hi: 'bootcamp' }, JWT_SECRET);
+        const token = jwt.sign({ email: user.email }, JWT_SECRET);
         res.status(201).json({ access_token: token, email: user.email, username: user.username });
     } else {
         res.sendStatus(404);

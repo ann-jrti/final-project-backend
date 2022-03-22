@@ -97,6 +97,7 @@ export const createLolProfile = async (stats) => {
         const db = client.db(DATABASE_NAME);
         const customProfiles = db.collection(CUSTOM_PROFILES_COLLECTION);
         await customProfiles.insertOne(stats)
+
     } catch (err) {
         console.log('Create lol profile error: ', err);
     } finally {
@@ -111,8 +112,26 @@ export const retrieveCustomLolProfile = async (email) => {
         const db = client.db(DATABASE_NAME);
         const customLolProfile = db.collection(CUSTOM_PROFILES_COLLECTION);
         const query = { email };
-        const options = { projection: { _id: 0, password: 0, status: 0 } }
-        return await customLolProfile.findOne(query, options);
+        // const options = { projection: { _id: 0, password: 0, status: 0 } }
+        return await customLolProfile.findOne(query);
+    } catch (err) {
+        console.log(err);
+    } finally {
+        client.close();
+    }
+}
+
+export const updateCustomProfileStatus = async (email) => {
+    try {
+        await client.connect();
+        const db = client.db(DATABASE_NAME);
+        const users = db.collection(USERS_COLLECTION);
+        const updateDoc = {
+            $set: {
+                customProfile: true
+            }
+        };
+        return await users.updateOne({ email }, updateDoc);
     } catch (err) {
         console.log(err);
     } finally {

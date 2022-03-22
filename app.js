@@ -39,4 +39,5 @@ app.get('/', (req, res) => {
 app.use('/auth', authRouter);
 app.use('/users', validateAuth, userRouter);
 
+
 app.listen(port, () => console.log(`server listening on port ${port}`));

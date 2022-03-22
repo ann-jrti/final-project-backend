@@ -1,13 +1,21 @@
 import express from "express";
-import { getUserInfo, generateCustomLolProfile, getCustomLolProfile } from "./users.controller.js";
+import { getUserInfo, generateCustomLolProfile, getCustomLolProfile, getUserInfoByEmail, modifyCustomProfileStatus } from "./users.controller.js";
 
 const router = express.Router();
 
 router.route('/')
     .get(getUserInfo)
 
+router.route('/:email')
+    .get(getUserInfoByEmail)
+
 router.route('/custom-profile')
     .post(generateCustomLolProfile)
     .get(getCustomLolProfile)
+
+
+router.route('/custom-profile/:email')
+    .patch(modifyCustomProfileStatus)
+
 
 export default router;
