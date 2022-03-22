@@ -8,13 +8,14 @@ const URI = `mongodb+srv://andrea:${DB_PW}@cluster0.s9dbl.mongodb.net/myFirstDat
 const client = new MongoClient(URI);
 
 const DATABASE_NAME = 'ann-final-project';
-const COLLECTION_NAME = 'users';
+const USERS_COLLECTION = 'users';
+const CUSTOM_PROFILES_COLLECTION = 'users-custom-profiles';
 
 export const createUser = async (user) => {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
-        const users = db.collection(COLLECTION_NAME);
+        const users = db.collection(USERS_COLLECTION);
         return await users.insertOne(user);
     } catch (err) {
         console.log(err);
@@ -28,7 +29,7 @@ export const getUserByEmailNoStatus = async (email) => {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
-        const users = db.collection(COLLECTION_NAME);
+        const users = db.collection(USERS_COLLECTION);
         return await users.findOne({ email });
     } catch (err) {
         console.log(err);
@@ -42,7 +43,7 @@ export const updateValidUser = async (email) => {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
-        const users = db.collection(COLLECTION_NAME);
+        const users = db.collection(USERS_COLLECTION);
         const updateDoc = {
             $set: {
                 status: 'SUCCESS'
@@ -61,7 +62,7 @@ export const retrieveSuccessUserByEmailAndPassword = async (email, password) => 
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
-        const users = db.collection(COLLECTION_NAME);
+        const users = db.collection(USERS_COLLECTION);
         const query = {
             email,
             password,
@@ -79,10 +80,39 @@ export const retrieveUserInfoByEmail = async (email) => {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
-        const users = db.collection(COLLECTION_NAME);
+        const users = db.collection(USERS_COLLECTION);
         const query = { email };
         const options = { projection: { _id: 0, password: 0, status: 0 } }
         return await users.findOne(query, options);
+    } catch (err) {
+        console.log(err);
+    } finally {
+        client.close();
+    }
+}
+
+export const createLolProfile = async (stats) => {
+    try {
+        await client.connect();
+        const db = client.db(DATABASE_NAME);
+        const customProfiles = db.collection(CUSTOM_PROFILES_COLLECTION);
+        await customProfiles.insertOne(stats)
+    } catch (err) {
+        console.log('Create lol profile error: ', err);
+    } finally {
+        client.close();
+    }
+
+}
+
+export const retrieveCustomLolProfile = async (email) => {
+    try {
+        await client.connect();
+        const db = client.db(DATABASE_NAME);
+        const customLolProfile = db.collection(CUSTOM_PROFILES_COLLECTION);
+        const query = { email };
+        const options = { projection: { _id: 0, password: 0, status: 0 } }
+        return await customLolProfile.findOne(query, options);
     } catch (err) {
         console.log(err);
     } finally {

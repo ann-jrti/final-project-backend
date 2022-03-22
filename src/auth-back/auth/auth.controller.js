@@ -30,6 +30,7 @@ export const registerCtrl = async (req, res) => {
 
 export const validateEmailCtrl = async (req, res) => {
     const { token } = req.query;
+    console.log(token);
     const validateToken = await retrieveValidationToken(token);
     if (validateToken !== null) {
         await deleteValidationToken(token);
@@ -45,9 +46,8 @@ export const loginCtrl = async (req, res) => {
     const user = await retrieveSuccessUserByEmailAndPassword(email, encodePassword(password));
     console.log(user);
     if (user !== null) {
-        console.log('looog', user.email);
         const token = jwt.sign({ email: user.email, hi: 'bootcamp' }, JWT_SECRET);
-        res.status(201).json({ access_token: token });
+        res.status(201).json({ access_token: token, email: user.email, username: user.username });
     } else {
         res.sendStatus(404);
     }
