@@ -1,4 +1,4 @@
-import { retrieveUserInfoByEmail, createLolProfile, retrieveCustomLolProfile, updateCustomProfileStatus } from "./users.model.js";
+import { retrieveUserInfoByEmail, createLolProfile, retrieveCustomLolProfile, updateCustomProfileStatus, retrieveDataCustomLolProfile } from "./users.model.js";
 
 export const getUserInfo = async (req, res) => {
     try {
@@ -48,4 +48,17 @@ export const modifyCustomProfileStatus = async (req, res) => {
         res.status(404).json('email user not found')
     }
 
+}
+
+export const getDataOfCustomLolProfile = async (req, res) => {
+    const { email } = req.params;
+    const user = await retrieveDataCustomLolProfile(email);
+    console.log('user', user);
+    if (user) {
+        await updateCustomProfileStatus(email);
+        res.status(200).send(user)
+
+    } else {
+        res.status(404).json('email user not found')
+    }
 }

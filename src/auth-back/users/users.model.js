@@ -138,3 +138,18 @@ export const updateCustomProfileStatus = async (email) => {
         client.close();
     }
 }
+
+export const retrieveDataCustomLolProfile = async (email) => {
+    try {
+        await client.connect();
+        const db = client.db(DATABASE_NAME);
+        const customLolProfile = db.collection(CUSTOM_PROFILES_COLLECTION);
+        const query = { email };
+        // const options = { projection: { _id: 0, password: 0, status: 0 } }
+        return await customLolProfile.findOne(query);
+    } catch (err) {
+        console.log(err);
+    } finally {
+        client.close();
+    }
+}
