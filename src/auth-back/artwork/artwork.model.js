@@ -21,3 +21,17 @@ export const createUserArtwork = async (artwork) => {
         client.close();
     }
 }
+
+export const retrieveArtworkByFileName = async (filename) => {
+    try {
+        await client.connect();
+        const db = client.db(DATABASE_NAME);
+        const usersArtworks = db.collection(ARTWORK_COLLECTION);
+        const query = { filename }
+        return await usersArtworks.findOne(query);
+    } catch (err) {
+        console.log(err);
+    } finally {
+        client.close();
+    }
+}
