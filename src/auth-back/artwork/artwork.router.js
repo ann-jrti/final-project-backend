@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import path from 'path'
 import multer from 'multer'
 import { createUserArtwork } from "./artwork.model.js";
-import { getArtworkByFileNameCtrl } from "./artwork.controller.js";
+import { getArtworkByFileNameCtrl, getUserArtworksCtrl } from "./artwork.controller.js";
 
 const router = express.Router();
 
@@ -29,10 +29,12 @@ router.route('/upload')
         console.log('req file');
         console.log(req);
         console.log(req.file);
-        const email = req.body.email
+        const email = req.body.email;
+        const token = req.body.token;
         const test = {
             ...req.file,
-            email: email
+            email: email,
+            token: token
         }
         res.json(test).status(200);
         await createUserArtwork(test);
@@ -41,5 +43,9 @@ router.route('/upload')
 
 router.route('/:artworkFile')
     .get(getArtworkByFileNameCtrl)
+
+
+router.route('/')
+    .get(getUserArtworksCtrl)
 
 export default router;
