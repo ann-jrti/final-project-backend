@@ -26,7 +26,7 @@ export const createUser = async (user) => {
         const users = db.collection(USERS_COLLECTION);
         return await users.insertOne(user);
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -40,7 +40,7 @@ export const getUserByEmailNoStatus = async (email) => {
         const users = db.collection(USERS_COLLECTION);
         return await users.findOne({ email });
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -59,7 +59,7 @@ export const updateValidUser = async (email) => {
         };
         return await users.updateOne({ email }, updateDoc);
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -78,7 +78,7 @@ export const retrieveSuccessUserByEmailAndPassword = async (email, password) => 
         }
         return await users.findOne(query);
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -93,7 +93,7 @@ export const retrieveUserInfoByEmail = async (email) => {
         const options = { projection: { _id: 0, password: 0, status: 0 } }
         return await users.findOne(query, options);
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -107,7 +107,7 @@ export const createLolProfile = async (stats) => {
         await customProfiles.insertOne(stats)
 
     } catch (err) {
-        console.log('Create lol profile error: ', err);
+        log.info('Create lol profile error: ', err);
     } finally {
         client.close();
     }
@@ -123,7 +123,7 @@ export const retrieveCustomLolProfile = async (email) => {
         // const options = { projection: { _id: 0, password: 0, status: 0 } }
         return await customLolProfile.findOne(query);
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -141,7 +141,7 @@ export const updateCustomProfileStatus = async (email) => {
         };
         return await users.updateOne({ email }, updateDoc);
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -156,7 +156,7 @@ export const retrieveDataCustomLolProfile = async (email) => {
         // const options = { projection: { _id: 0, password: 0, status: 0 } }
         return await customLolProfile.findOne(query);
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }

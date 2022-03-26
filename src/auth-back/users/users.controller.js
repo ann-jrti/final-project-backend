@@ -39,7 +39,7 @@ export const getUserInfoByEmail = async (req, res) => {
 export const modifyCustomProfileStatus = async (req, res) => {
     const { email } = req.params;
     const user = await retrieveUserInfoByEmail(email);
-    console.log('user', user);
+    log.info('user', user);
     if (user) {
         await updateCustomProfileStatus(email);
         res.sendStatus(200)
@@ -53,7 +53,7 @@ export const modifyCustomProfileStatus = async (req, res) => {
 export const getDataOfCustomLolProfile = async (req, res) => {
     const { email } = req.params;
     const user = await retrieveDataCustomLolProfile(email);
-    console.log('user', user);
+    log.info('user', user);
     if (user) {
         await updateCustomProfileStatus(email);
         res.status(200).send(user)

@@ -23,14 +23,14 @@ export const registerCtrl = async (req, res) => {
         }
 
     } catch (err) {
-        console.log(err);
+        log.info(err);
         res.sendStatus(500);
     }
 }
 
 export const validateEmailCtrl = async (req, res) => {
     const { token } = req.query;
-    console.log(token);
+    log.info(token);
     const validateToken = await retrieveValidationToken(token);
     if (validateToken !== null) {
         await deleteValidationToken(token);
