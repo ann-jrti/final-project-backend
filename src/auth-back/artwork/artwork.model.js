@@ -1,54 +1,35 @@
-import { MongoClient } from "mongodb";
-import dotenv from "dotenv";
-dotenv.config();
+import { db } from "../../database/index.js"
 
-const { DB_PW } = process.env;
-const URI = `mongodb+srv://andrea:${DB_PW}@cluster0.s9dbl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = new MongoClient(URI);
-
-const DATABASE_NAME = 'ann-final-project';
 const ARTWORK_COLLECTION = 'users-artworks';
 
 export const createUserArtwork = async (artwork) => {
     try {
-        await client.connect();
-        const db = client.db(DATABASE_NAME);
         const usersArtworks = db.collection(ARTWORK_COLLECTION);
         return await usersArtworks.insertOne(artwork);
     } catch (err) {
-        log.info(err);
-    } finally {
-        client.close();
+        log.error(err);
     }
 }
 
 export const retrieveArtworkByFileName = async (filename) => {
     try {
-        await client.connect();
-        const db = client.db(DATABASE_NAME);
         const usersArtworks = db.collection(ARTWORK_COLLECTION);
         const query = { filename }
         return await usersArtworks.findOne(query);
     } catch (err) {
-        log.info(err);
-    } finally {
-        client.close();
+        log.error(err);
     }
 }
 
 export const retrieveArtworksByUserEmail = async (email) => {
     try {
-        await client.connect();
-        const db = client.db(DATABASE_NAME);
         const usersArtworks = db.collection(ARTWORK_COLLECTION);
         const query = { email }
         log.info('model', email);
         const artwork = await usersArtworks.find(query).toArray();
         return artwork ?? undefined;
     } catch (err) {
-        log.info(err);
-    } finally {
-        client.close();
+        log.error(err);
     }
 }
 
