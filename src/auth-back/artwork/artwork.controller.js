@@ -10,7 +10,9 @@ export const getArtworkByFileNameCtrl = async (req, res) => {
 }
 
 export const getUserArtworksCtrl = async (req, res) => {
-    const { email } = req.query;
+    console.log(req.user);
+    const { email } = req;
+
     log.info('email', email);
     const artwork = await retrieveArtworksByUserEmail(email);
     if (artwork !== undefined) res.json(artwork);

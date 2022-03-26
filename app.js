@@ -1,4 +1,4 @@
-import {} from 'dotenv/config';
+import { } from 'dotenv/config';
 import { loggerMiddleware } from './src/logger/index.js'
 import { connectDB } from './src/database/index.js'
 import express from "express";
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', authRouter);
-app.use('/artwork', artworkRouter);
+app.use('/artwork', validateAuth, artworkRouter);
 app.use('/users', validateAuth, userRouter);
 
 app.listen(port, () => log.info(`server listening on port ${port}`));

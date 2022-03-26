@@ -16,7 +16,6 @@ export const createUser = async (user) => {
 // returns user if exists
 export const getUserByEmailNoStatus = async (email) => {
     try {
-        const db = client.db(DATABASE_NAME);
         const users = db.collection(USERS_COLLECTION);
         return await users.findOne({ email });
     } catch (err) {
@@ -53,7 +52,6 @@ export const retrieveSuccessUserByEmailAndPassword = async (email, password) => 
         log.error(err);
     }
 }
-
 export const retrieveUserInfoByEmail = async (email) => {
     try {
         const users = db.collection(USERS_COLLECTION);
