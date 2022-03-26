@@ -16,7 +16,7 @@ export const createUserArtwork = async (artwork) => {
         const usersArtworks = db.collection(ARTWORK_COLLECTION);
         return await usersArtworks.insertOne(artwork);
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -30,7 +30,7 @@ export const retrieveArtworkByFileName = async (filename) => {
         const query = { filename }
         return await usersArtworks.findOne(query);
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -42,11 +42,11 @@ export const retrieveArtworksByUserToken = async (token) => {
         const db = client.db(DATABASE_NAME);
         const usersArtworks = db.collection(ARTWORK_COLLECTION);
         const query = { token }
-        console.log('model', token);
+        log.info('model', token);
         const artwork = await usersArtworks.find(query).toArray();
         return artwork ?? undefined;
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }

@@ -295,6 +295,6 @@ export const sendValidationEmail = async (to, url) => {
         </body>
         </html>`,
   });
-  console.log("Message sent: %s", info.messageId);
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  log.info("Message sent: %s", info.messageId);
+  log.info("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 } 

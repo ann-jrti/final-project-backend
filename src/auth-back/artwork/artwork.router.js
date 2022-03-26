@@ -26,9 +26,9 @@ const upload = multer({
 
 router.route('/upload')
     .post(upload.single('uploadedFile'), async (req, res) => {
-        console.log('req file');
-        console.log(req);
-        console.log(req.file);
+        log.info('req file');
+        log.info(req);
+        log.info(req.file);
         const email = req.body.email;
         const token = req.body.token;
         const test = {

@@ -20,7 +20,7 @@ export const createValidationToken = async (token, userName) => {
             user: userName
         });
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -33,7 +33,7 @@ export const retrieveValidationToken = async (token) => {
         const tokens = db.collection(COLLECTION_NAME);
         return await tokens.findOne({ token });
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }
@@ -46,7 +46,7 @@ export const deleteValidationToken = async (token) => {
         const tokens = db.collection(COLLECTION_NAME);
         return await tokens.deleteOne({ token });
     } catch (err) {
-        console.log(err);
+        log.info(err);
     } finally {
         client.close();
     }

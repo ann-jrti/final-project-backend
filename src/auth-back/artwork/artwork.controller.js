@@ -9,9 +9,9 @@ export const getArtworkByFileNameCtrl = async (req, res) => {
 }
 
 export const getUserArtworksCtrl = async (req, res) => {
-    console.log('req ctrl', req);
+    log.info('req ctrl', req);
     const { token } = req.query;
-    console.log('token', token);
+    log.info('token', token);
     const artwork = await retrieveArtworksByUserToken(token);
     if (artwork !== undefined) res.json(artwork);
     else res.sendStatus(404)
