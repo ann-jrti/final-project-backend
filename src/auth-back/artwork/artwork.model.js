@@ -36,13 +36,13 @@ export const retrieveArtworkByFileName = async (filename) => {
     }
 }
 
-export const retrieveArtworksByUserToken = async (token) => {
+export const retrieveArtworksByUserEmail = async (email) => {
     try {
         await client.connect();
         const db = client.db(DATABASE_NAME);
         const usersArtworks = db.collection(ARTWORK_COLLECTION);
-        const query = { token }
-        log.info('model', token);
+        const query = { email }
+        log.info('model', email);
         const artwork = await usersArtworks.find(query).toArray();
         return artwork ?? undefined;
     } catch (err) {
