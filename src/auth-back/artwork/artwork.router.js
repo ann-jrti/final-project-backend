@@ -30,11 +30,11 @@ router.route('/upload')
         log.info(req);
         log.info(req.file);
         const email = req.body.email;
-        const token = req.body.token;
+        const id = req.body.id;
         const test = {
             ...req.file,
             email: email,
-            token: token
+            id: id
         }
         res.json(test).status(200);
         await createUserArtwork(test);
