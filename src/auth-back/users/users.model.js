@@ -5,11 +5,19 @@ dotenv.config();
 
 const { DB_PW } = process.env;
 const URI = `mongodb+srv://andrea:${DB_PW}@cluster0.s9dbl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = new MongoClient(URI);
+const config = {
+    connectTimeoutMS: 5000,
+    socketTimeoutMS: 5000,
+    useUnifiedTopology: true
+}
+
+const client = new MongoClient(URI, config);
 
 const DATABASE_NAME = 'ann-final-project';
 const USERS_COLLECTION = 'users';
 const CUSTOM_PROFILES_COLLECTION = 'users-custom-profiles';
+
+
 
 export const createUser = async (user) => {
     try {
