@@ -7,9 +7,8 @@ import authRouter from './src/auth-back/auth/auth.router.js'
 import userRouter from './src/auth-back/users/users.router.js'
 import artworkRouter from './src/auth-back/artwork/artwork.router.js'
 import { validateAuth } from "./src/auth-back/auth/auth.middleware.js";
-import bodyParser from 'body-parser'
-import path from 'path'
-import multer from 'multer'
+import bodyParser from 'body-parser';
+import playersPoolRouter from './src/auth-back/players-pool/players-pool.router.js'
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -30,5 +29,6 @@ app.get('/', (req, res) => {
 app.use('/auth', authRouter);
 app.use('/artwork', validateAuth, artworkRouter);
 app.use('/users', validateAuth, userRouter);
+app.use('/players-pool', validateAuth, playersPoolRouter);
 
 app.listen(port, () => log.info(`server listening on port ${port}`));
