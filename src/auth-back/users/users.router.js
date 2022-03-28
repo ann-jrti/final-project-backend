@@ -11,7 +11,6 @@ router.route('/custom-profile')
     .get(getCustomLolProfile)
 
 router.route('/custom-profile/:email')
-
     .get(getDataOfCustomLolProfile)
 
 

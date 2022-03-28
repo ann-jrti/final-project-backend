@@ -33,3 +33,23 @@ export const retrieveArtworksByUserEmail = async (email) => {
     }
 }
 
+export const retrieveArtworkById = async (id) => {
+    try {
+        const usersArtworks = db.collection(ARTWORK_COLLECTION);
+        const query = { id }
+        log.info('artwork id', id);
+        const artwork = await usersArtworks.findOne(query);
+        return artwork ?? undefined;
+    } catch (err) {
+        log.error(err);
+    }
+}
+
+export const deleteArtwork = async (artwork) => {
+    try {
+        const usersArtworks = db.collection(ARTWORK_COLLECTION);
+        await usersArtworks.deleteOne(artwork);
+    } catch (err) {
+        log.error(err);
+    }
+}

@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import path from 'path'
 import multer from 'multer'
 import { createUserArtwork } from "./artwork.model.js";
-import { getArtworkByFileNameCtrl, getUserArtworksCtrl } from "./artwork.controller.js";
+import { getArtworkByFileNameCtrl, getUserArtworksCtrl, deleteArtworkByIdCtrl } from "./artwork.controller.js";
 
 const router = express.Router();
 
@@ -45,7 +45,10 @@ router.route('/:artworkFile')
     .get(getArtworkByFileNameCtrl)
 
 
+router.route('/:id')
+    .delete(deleteArtworkByIdCtrl)
+
 router.route('/')
     .get(getUserArtworksCtrl)
 
-export default router;
+export default router; 
