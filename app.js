@@ -29,6 +29,6 @@ app.get('/', (req, res) => {
 app.use('/auth', authRouter);
 app.use('/artwork', validateAuth, artworkRouter);
 app.use('/users', validateAuth, userRouter);
-app.use('/players-pool', validateAuth, playersPoolRouter);
+app.use('/players-pool', playersPoolRouter);
 
 app.listen(port, () => log.info(`server listening on port ${port}`));
