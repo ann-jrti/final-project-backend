@@ -63,10 +63,18 @@ export const retrieveUserInfoByEmail = async (email) => {
     }
 }
 
-export const createLolProfile = async (stats) => {
+export const createLolProfile = async (stats, email) => {
     try {
         const customProfiles = db.collection(CUSTOM_PROFILES_COLLECTION);
-        await customProfiles.insertOne(stats)
+        const query = { email };
+        const isThereCustomProfile = await customProfiles.findOne(query)
+        if (isThereCustomProfile === null) {
+            return await customProfiles.insertOne(stats);
+        } else {
+            const newStats = stats;
+            return await customProfiles.replaceOne(isThereCustomProfile, newStats);
+        }
+
     } catch (err) {
         log.error('Create lol profile error: ', err);
     }

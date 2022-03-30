@@ -4,7 +4,9 @@ export const generateCustomLolProfile = async (req, res) => {
     const stats = {
         ...req.body
     };
-    await createLolProfile(stats);
+    const { email } = req;
+
+    await createLolProfile(stats, email);
     await updateCustomProfileStatus(req.email);
     res.status(201).json(stats);
 }
