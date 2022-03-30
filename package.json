@@ -1,18 +1,20 @@
 {
   "name": "final-project-backend",
- "version": "1.0.0",
- "engines": {
-   "node": "12.11.1"
-   },
+  "version": "1.0.0",
+  "engines": {
+    "node": "12.11.1"
+  },
   "description": "backend-project",
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "watch": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "dev": "react-scripts start",
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
-  
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -27,13 +29,13 @@
     "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^6.7.2",
     "scrape-it": "^5.3.2",
+    "serve": "^13.0.2",
     "winston": "^3.6.0"
   },
   "devDependencies": {
     "dotenv": "^16.0.0",
-    
+    "express-winston": "^4.2.0",
     "nodemon": "^2.0.15",
-    "winston": "^3.6.0",
-    "express-winston": "^4.2.0"
+    "winston": "^3.6.0"
   }
 }
