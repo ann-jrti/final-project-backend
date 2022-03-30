@@ -6,16 +6,11 @@ export const createPlayerOffer = async (playerOffer, email) => {
     try {
         const playersPool = db.collection(PLAYERS_POOL_COLLECTION);
         const query = { email }
-        console.log('here, query');
         const isTherePlayerOffice = await playersPool.findOne(query);
-        // log.info('isthereplayer', isTherePlayerOffice);
-        console.log('isthereplayer', isTherePlayerOffice)
-        console.log(playerOffer);
         if (isTherePlayerOffice === null) {
             return await playersPool.insertOne(playerOffer);
         } else {
             const newEdit = playerOffer
-            console.log('newEdit', newEdit);
             return await playersPool.replaceOne(isTherePlayerOffice, newEdit);
         }
 

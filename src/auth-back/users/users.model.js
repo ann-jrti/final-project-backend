@@ -1,7 +1,9 @@
 import { db } from "../../database/index.js"
+import { getPlayerOfferByPlayerEmail } from "../players-pool/players-pool.model.js";
 const USERS_COLLECTION = 'users';
 const CUSTOM_PROFILES_COLLECTION = 'users-custom-profiles';
-
+const PLAYERS_POOL_COLLECTION = 'players-pool';
+const ARTWORK_COLLECTION = 'users-artworks';
 
 
 export const createUser = async (user) => {
@@ -56,8 +58,7 @@ export const retrieveUserInfoByEmail = async (email) => {
     try {
         const users = db.collection(USERS_COLLECTION);
         const query = { email };
-        const options = { projection: { _id: 0, password: 0, status: 0 } }
-        return await users.findOne(query, options);
+        return await users.findOne(query);
     } catch (err) {
         log.error(err);
     }
@@ -113,5 +114,57 @@ export const retrieveDataCustomLolProfile = async (email) => {
         return await customLolProfile.findOne(query);
     } catch (err) {
         log.error(err);
+    }
+}
+
+export const deleteUserAccount = async (email) => {
+    console.log('on delete user account')
+    try {
+        const users = db.collection(USERS_COLLECTION);
+        const query = { email };
+        // await customProfiles.findOne(query)
+        await users.deleteOne(query);
+
+    } catch (err) {
+        log.error('Create lol profile error: ', err);
+    }
+}
+
+export const deleteCustomProfile = async (email) => {
+    console.log('on delete custom profile');
+    try {
+        const customProfiles = db.collection(CUSTOM_PROFILES_COLLECTION);
+        const query = { email };
+        console.log('query', query)
+
+        await customProfiles.deleteOne(query);
+    } catch (err) {
+        log.error('Create lol profile error: ', err);
+    }
+}
+
+export const deleteActiveOffer = async (email) => {
+    try {
+        console.log('on delete active offer');
+        const playerOffers = db.collection(PLAYERS_POOL_COLLECTION);
+        const query = { email };
+        console.log('query', query)
+        // await customProfiles.findOne(query)
+        await playerOffers.deleteOne(query);
+    } catch (err) {
+        log.error('Create lol profile error: ', err);
+    }
+}
+
+export const deleteUserArtworks = async (email) => {
+    try {
+        console.log('on delete artworks');
+        const artworks = db.collection(ARTWORK_COLLECTION);
+        const query = { email };
+        console.log('query', query)
+        // await customProfiles.findOne(query)
+        await artworks.deleteOne(query);
+    } catch (err) {
+        log.error('Create lol profile error: ', err);
     }
 }
