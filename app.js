@@ -22,10 +22,6 @@ app.use(cors());
 
 app.use(loggerMiddleware);
 
-app.get('/', (req, res) => {
-    res.send('hello')
-})
-
 app.use('/auth', authRouter);
 app.use('/artwork', validateAuth, artworkRouter);
 app.use('/users', validateAuth, userRouter);
