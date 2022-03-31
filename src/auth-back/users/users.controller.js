@@ -52,15 +52,15 @@ export const getDataOfCustomLolProfile = async (req, res) => {
 
 export const deleteUserAccountCtrl = async (req, res) => {
   let { email } = req;
-  console.log('47', email);
+  console.log('55', email);
   const userAccount = await retrieveUserInfoByEmail(email);
   const userActiveOffer = await retrieveDataCustomLolProfile(email);
   const userCustomProfile = await retrieveDataCustomLolProfile(email);
-  console.log('49', userAccount, userActiveOffer, userCustomProfile);
+  console.log('59', userAccount, userActiveOffer, userCustomProfile);
   if (userAccount !== undefined) {
-    await deleteUserAccount(userAccount);
-    await deleteActiveOffer(userActiveOffer);
-    await deleteCustomProfile(userCustomProfile);
+    await deleteUserAccount(email);
+    await deleteActiveOffer(email);
+    await deleteCustomProfile(email);
     res.status(201).json('done');
   } else {
     res.status(400).json('this user doesnt exist');

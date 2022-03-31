@@ -125,7 +125,7 @@ export const deleteUserAccount = async (email) => {
     const users = db.collection(USERS_COLLECTION);
     const query = { email };
     // await customProfiles.findOne(query)
-    await users.deleteOne(query);
+    return await users.deleteOne(query);
   } catch (err) {
     log.error('Create lol profile error: ', err);
   }
@@ -138,7 +138,7 @@ export const deleteCustomProfile = async (email) => {
     const query = { email };
     console.log('query', query);
 
-    await customProfiles.deleteOne(query);
+    return await customProfiles.deleteOne(query);
   } catch (err) {
     log.error('Create lol profile error: ', err);
   }
@@ -151,7 +151,7 @@ export const deleteActiveOffer = async (email) => {
     const query = { email };
     console.log('query', query);
     // await customProfiles.findOne(query)
-    await playerOffers.deleteOne(query);
+    return await playerOffers.deleteOne(query);
   } catch (err) {
     log.error('Create lol profile error: ', err);
   }
@@ -164,7 +164,7 @@ export const deleteUserArtworks = async (email) => {
     const query = { email };
     console.log('query', query);
     // await customProfiles.findOne(query)
-    await artworks.deleteOne(query);
+    return await artworks.deleteOne(query);
   } catch (err) {
     log.error('Create lol profile error: ', err);
   }

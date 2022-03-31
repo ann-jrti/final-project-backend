@@ -60,13 +60,14 @@ export const loginCtrl = async (req, res) => {
     encodePassword(password)
   );
   const customProfile = await retrieveDataCustomLolProfile(email);
+
   if (user !== null) {
     const token = jwt.sign({ email: user.email }, JWT_SECRET);
     res.status(201).json({
       access_token: token,
       email: user.email,
       username: user.username,
-      playername: customProfile.basicInfo.name,
+      playername: customProfile ? customProfile.basicInfo.name : undefined,
     });
   } else {
     res.sendStatus(404);
